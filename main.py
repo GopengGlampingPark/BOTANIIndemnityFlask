@@ -591,10 +591,8 @@ def submit_form(C_UniqueID):
 	print("function submit form called")
 
 	activity_mapping = {
-		"ZIPLINE": "ZIPLINE",
-		"WA": "WATER ABSEILING",
-		"LOF": "LEAP OF FAITH",
-		"WCLIMG": "WALL CLIMBING"
+		"PBOAT": "PADDLE BOAT",
+		"TRAMPOLINE": "TRAMPOLINE"
 	}
 
 	address_parts = [
