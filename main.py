@@ -86,7 +86,7 @@ lock = Lock()
 @app.route("/genbookid", methods=["POST", "GET"])
 def genbookid():
 	if request.method == "POST":
-		genbookid = generate_sequential_id("BOTANIBOOKID_")
+		genbookid = generate_sequential_id("BOG")
 		session['bookingName'] = request.form.get('bookingName')  # Ensure 'groupName' comes from the form
 		session['genbookid'] = genbookid
 		bookingName = session.get("bookingName")
@@ -269,7 +269,7 @@ def thankyou():
 
 ######################################################################################################################## SHEET RELATED
 def insert_to_sheet():
-	C_UniqueID = generate_sequential_id("BOTANIID_")
+	C_UniqueID = generate_sequential_id("GGPID_")
 	
 	C_bookingID = session.get("bookingID")  # Use the existing bookingID from the session if it's not None or empty
 
@@ -299,6 +299,7 @@ def insert_to_sheet():
 		session.get("fullname"),
 		session.get("gender"),
 		session.get("age"),
+		None,
 		session.get("NRIC"),
 		session.get("email"),
 		session.get("contact"),
@@ -313,10 +314,11 @@ def insert_to_sheet():
 	print("cleintinfo : ", clientinfo)
 	append_to_sheet('Client_Information', clientinfo)
 
-	if session.get("age") == "below12" or session.get("age") == "13-17":
+	if int(session.get("age")) < 18:
 		under18info = [[
 			C_bookingID,
 			C_UniqueID,
+			session.get("age"),
 			session.get("acknowledgement"),
 			session.get("gname"),
 			session.get("gcontact"),
